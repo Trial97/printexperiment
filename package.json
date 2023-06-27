@@ -12,6 +12,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-rnd": "^10.4.1",
+    "react-router-dom": "^6.14.0",
     "react-scripts": "5.0.1",
     "react-to-print": "^2.14.13",
     "reactstrap": "^9.2.0",
