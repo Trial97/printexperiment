@@ -39,8 +39,8 @@ const Page = ({ done, componentRef, actionCallBack, extraRef }) => {
               id: (v || []).reduce((a, b) => Math.max(a, b.id), 0) + 1,
               type: action,
               value: text,
-              font: 10,
-              border: 10,
+              font: 34,
+              border: action == "circle" ? 10 : 0,
             },
           ]);
           break;

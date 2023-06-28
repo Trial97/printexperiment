@@ -18,9 +18,9 @@ const Component = ({
         height: "100px",
         // backgroundColor: isCircle && "green",
         borderRadius: isCircle && "50%",
-        borderWidth: isCircle || selectedID === id ? border + "px" : "",
-        border: isCircle || selectedID === id ? "solid" : "",
-        borderColor: selectedID === id ? "red" : isCircle ? "black" : "",
+        borderWidth: selectedID === id && border < 10 ? "10px" : border + "px",
+        border: "solid",
+        borderColor: selectedID === id ? "red" : "black",
       }}
       dragGrid={[50, 50]}
       enableResizing={true}
