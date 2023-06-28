@@ -4,71 +4,147 @@ import Page from "./Page";
 import Print from "./Print";
 function App() {
   const [text, setText] = useState("");
-  const [action, setAction] = useState("");
   const [canvas, setCanvas] = useState(null);
   const [rand, setRand] = useState(5);
   const [col, setCol] = useState(4);
+  const [callBack, setCallBack] = useState({
+    call: () => {},
+    getInfo: () => {},
+  });
+  const [textError, setTextError] = useState(false);
   const componentRef = React.useRef(null);
+  const extraRef = React.useRef(null);
 
   return (
-    <div class="container">
+    <div className="container">
       <Page
         componentRef={componentRef}
-        action={action}
+        extraRef={extraRef}
         done={() => {
-          setAction("");
+          setTextError(false);
           setText("");
         }}
-        text={text}
+        actionCallBack={setCallBack}
       />
-      <div class="row">
-        <div class="col"></div>
-        <div class="col"></div>
-        <div class="col d-flex align-items-center">
+      <div className="row">
+        <div className="col"></div>
+        <div className="col"></div>
+        <div className="col d-flex align-items-center">
           <div>
-            <div class="row">
-              <label for="text">Scrie mai jos ce vrei sa adaugi:</label>
+            <br /> <br /> <br /> <br /> <br />
+            <div className="row">
+              <h1>Adauga</h1>
+            </div>
+            <div className="row">
+              <label htmlFor="text">Scrie mai jos ce vrei sa adaugi:</label>
               <input
                 id="text"
                 type="text"
                 value={text}
                 onChange={(e) => setText(e.currentTarget.value)}
+                style={
+                  textError
+                    ? {
+                        borderWidth: "1px",
+                        border: "solid",
+                        borderColor: "red",
+                      }
+                    : {}
+                }
               />
               <button
                 onClick={() => {
-                  setAction("text");
+                  setTextError(!text);
+                  callBack && callBack.call && callBack.call("text", text);
                 }}
               >
                 Adauga text
               </button>
             </div>
-            <div class="row">
+            <div className="row">
               <button
                 onClick={() => {
-                  setAction("circle");
+                  callBack && callBack.call && callBack.call("circle", text);
                 }}
               >
                 Adauga cerc
               </button>
             </div>
-            <div class="row">
-              <button
-                onClick={() => {
-                  setAction("sterge");
-                }}
-              >
-                Sterge Selectat
-              </button>
+            <br /> <br /> <br /> <br /> <br />
+            <div ref={extraRef}>
+              <div className="row">
+                <h1>Setari element selectat</h1>
+              </div>
+              <div className="row">
+                <button
+                  onClick={() => {
+                    callBack && callBack.call && callBack.call("sterge", text);
+                  }}
+                >
+                  Sterge Selectat
+                </button>
+              </div>
+              <div className="row">
+                <label htmlFor="newText">
+                  Editeaza textul elementului selectat
+                </label>
+                <input
+                  id="newText"
+                  type="text"
+                  value={
+                    callBack && callBack.getInfo() && callBack.getInfo().value
+                  }
+                  onChange={(e) =>
+                    callBack &&
+                    callBack.call &&
+                    callBack.call("setText", e.currentTarget.value)
+                  }
+                />
+              </div>
+              <div className="row">
+                <label htmlFor="font">Font</label>
+                <input
+                  id="font"
+                  type="number"
+                  value={
+                    callBack && callBack.getInfo() && callBack.getInfo().font
+                  }
+                  onChange={(e) =>
+                    callBack &&
+                    callBack.call &&
+                    callBack.call("setFont", Number(e.currentTarget.value))
+                  }
+                />
+              </div>
+              <div className="row">
+                <label htmlFor="font">Grosime bordura</label>
+                <input
+                  id="font"
+                  type="number"
+                  value={
+                    callBack && callBack.getInfo() && callBack.getInfo().border
+                  }
+                  onChange={(e) =>
+                    callBack &&
+                    callBack.call &&
+                    callBack.call("setBorder", Number(e.currentTarget.value))
+                  }
+                />
+              </div>
+            </div>
+            <br /> <br /> <br /> <br /> <br />
+            <div className="row">
+              <h1>Setari printare</h1>
             </div>
             <div className="row">
-              <label for="rand">Randuri</label>
+              <label htmlFor="rand">Randuri</label>
               <input
                 id="rand"
                 type="number"
                 value={rand}
                 onChange={(e) => setRand(Number(e.currentTarget.value))}
               />
-              <label for="col">Coloane</label>
+              <label htmlFor="col">Coloane</label>
               <input
                 id="col"
                 type="number"
@@ -76,7 +152,7 @@ function App() {
                 onChange={(e) => setCol(Number(e.currentTarget.value))}
               />
             </div>
-            <div class="row">
+            <div className="row">
               <button
                 onClick={() => {
                   html2canvas(componentRef.current).then((canvas) => {
