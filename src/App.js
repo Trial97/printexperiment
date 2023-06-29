@@ -117,9 +117,9 @@ function App() {
                 />
               </div>
               <div className="row">
-                <label htmlFor="font">Grosime bordura</label>
+                <label htmlFor="bordura">Grosime bordura</label>
                 <input
-                  id="font"
+                  id="bordura"
                   type="number"
                   value={
                     callBack && callBack.getInfo() && callBack.getInfo().border
@@ -130,6 +130,38 @@ function App() {
                     callBack.call("setBorder", Number(e.currentTarget.value))
                   }
                 />
+              </div>
+              <div className="row">
+                <label htmlFor="bold">
+                  <input
+                    id="bold"
+                    type="checkbox"
+                    value={
+                      callBack &&
+                      callBack.getInfo() &&
+                      callBack.getInfo().border
+                    }
+                    onChange={(e) =>
+                      callBack && callBack.call && callBack.call("bold", "")
+                    }
+                  />
+                  Bold
+                </label>
+                <label htmlFor="italic">
+                  <input
+                    id="italic"
+                    type="checkbox"
+                    value={
+                      callBack &&
+                      callBack.getInfo() &&
+                      callBack.getInfo().border
+                    }
+                    onChange={(e) =>
+                      callBack && callBack.call && callBack.call("italic", "")
+                    }
+                  />
+                  Italic
+                </label>
               </div>
             </div>
             <br /> <br /> <br /> <br /> <br />

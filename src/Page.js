@@ -41,6 +41,8 @@ const Page = ({ done, componentRef, actionCallBack, extraRef }) => {
               value: text,
               font: 34,
               border: action == "circle" ? 10 : 0,
+              bold: false,
+              italic: false,
             },
           ]);
           break;
@@ -105,6 +107,44 @@ const Page = ({ done, componentRef, actionCallBack, extraRef }) => {
             })
           );
           break;
+        case "bold":
+          setComponents(
+            (v) => {
+              const sel = v.find((i) => i.id === selectedID);
+              if (!sel) return v;
+              return [
+                ...v.filter((i) => i.id !== selectedID),
+                {
+                  ...sel,
+                  bold: !sel.bold,
+                },
+              ];
+            },
+            actionCallBack({
+              call: update,
+              getInfo: getInfo,
+            })
+          );
+          break;
+        case "italic":
+          setComponents(
+            (v) => {
+              const sel = v.find((i) => i.id === selectedID);
+              if (!sel) return v;
+              return [
+                ...v.filter((i) => i.id !== selectedID),
+                {
+                  ...sel,
+                  italic: !sel.italic,
+                },
+              ];
+            },
+            actionCallBack({
+              call: update,
+              getInfo: getInfo,
+            })
+          );
+          break;
       }
       done();
     }
@@ -140,6 +180,8 @@ const Page = ({ done, componentRef, actionCallBack, extraRef }) => {
             setSelectedID={setSelectedID}
             font={v.font}
             border={v.border}
+            bold={v.bold}
+            italic={v.italic}
           />
         ))}
       </div>

@@ -8,6 +8,8 @@ const Component = ({
   setSelectedID,
   font,
   border,
+  bold,
+  italic,
 }) => {
   return (
     <Rnd
@@ -36,7 +38,15 @@ const Component = ({
         setSelectedID(id);
       }}
     >
-      <div style={{ margin: "auto", zIndex: 10, fontSize: font + "px" }}>
+      <div
+        style={{
+          margin: "auto",
+          zIndex: 10,
+          fontSize: font + "px",
+          fontWeight: bold ? "bold" : "normal",
+          fontStyle: italic ? "italic" : "normal",
+        }}
+      >
         {text}
       </div>
     </Rnd>
